@@ -1,10 +1,12 @@
-# Youtube Music
-<img width="1522" alt="image" src="https://user-images.githubusercontent.com/90651091/236672943-7effe980-d6c4-424f-adfb-3f03d2017295.png">
+# Lofi Cafe
 
-A simple no-bloat youtube music wrapper.
+<img width="1522" alt="image" src="https://github.com/FormalSnake/lofi-cafe-wrapper/assets/screenshot.png">
+
+A simple no-bloat Lofi Cafe wrapper.
 At the moment you need to compile it yourself.
+It is made to feel like a real app
 
 ## Features
-- YouTube music (obviously)
+
+- Lofi cafe (obviously)
 - Minimal
-- Custom theme (custom selector in future)

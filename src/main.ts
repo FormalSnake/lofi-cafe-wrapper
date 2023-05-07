@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, session } = require("electron");
 const windowStateKeeper = require("electron-window-state");
 const Store = require("electron-store");
 const isDev = require("electron-is-dev");
@@ -6,6 +6,7 @@ let win;
 const store = new Store();
 const path = require("path");
 const fs = require("fs");
+const { ElectronChromeExtensions } = require("electron-chrome-extensions");
 
 function createWindow() {
   // Load the previous state with fallback to defaults
@@ -13,6 +14,7 @@ function createWindow() {
     defaultWidth: 1000,
     defaultHeight: 800,
   });
+  const extensions = new ElectronChromeExtensions();
 
   // Create the window using the state information
   win = new BrowserWindow({
@@ -21,7 +23,7 @@ function createWindow() {
     width: mainWindowState.width,
     height: mainWindowState.height,
     titleBarStyle: "hidden",
-    trafficLightPosition: { x: 16, y: 24 },
+    trafficLightPosition: { x: 20, y: 33 },
     webPreferences: {
       nodeIntegrationInSubFrames: true,
       affinity: "main-window",
@@ -38,25 +40,21 @@ function createWindow() {
   // automatically (the listeners will be removed when the window is closed)
   // and restore the maximized or full screen state
   mainWindowState.manage(win);
-
-  win.loadURL("https://music.youtube.com");
+  win.loadURL("https://www.lofi.cafe");
+  win.show();
 
   win.webContents.on("did-finish-load", () => {
-    // The path to your CSS file
-    const cssPath = path.join(__dirname, "/style/mocha.css");
-
-    // Inject the CSS file into the WebContents instance
-    win.webContents.insertCSS(fs.readFileSync(cssPath, "utf8"));
     win.webContents.insertCSS(`
     
-    .center-content.ytmusic-nav-bar{
+    #top-ui{
       -webkit-user-select: none;
       -webkit-app-region: drag;
-      margin-top: 10px;
     }
-    .tp-yt-paper-icon-button, ytmusic-search-box.ytmusic-nav-bar, .left-content.ytmusic-nav-bar, .right-content.ytmusic-nav-bar, .ytmusic-pivot-bar-renderer{
+    #visitors-counter {
+        margin-left: 64px !important;
+    }
+    .vertical, #horizontal{
       -webkit-app-region: no-drag;
-
     }
   `);
   });
